@@ -1,0 +1,5 @@
+Moi mot framework se co 1-2 design pattern duoc su dung xuyenb suot trong FW:
+- Express: middleware
+- SocketIO (chat app, real time): Observer
+- Loopback 3: Observer
+- Loopback 4 + NestJS: Dependency Injection (Inversion of Control)
