@@ -104,6 +104,7 @@ module.exports.login = (req, res, next) => {
       if (!isMatched) return Promise.reject({ message: "Wrong password" })
 
       const payload = {
+        userId: user._id,
         email,
         fullName: user.fullName,
         userType: user.userType

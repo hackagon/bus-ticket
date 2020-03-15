@@ -13,6 +13,11 @@ const { getTrips, getTripById, createTrip,
 const {
   validateCreateUser,
   validateUpdateUser, validateUpdatePassword } = require("../middlewares/validations/validate.user")
+
+const { validateCreateStation, validateUpdateStation } = require("../middlewares/validations/validate.station")
+const { validateCreateTrip, validateUpdateTrip } = require("../middlewares/validations/validate.trip")
+
+const { createTicket } = require("./ticket");
 const router = express.Router();
 
 // USER
@@ -38,16 +43,42 @@ router.post("/users/login", login);
 // STATION
 router.get("/stations", getStations)
 router.get("/stations/:stationId", getStationById)
-router.post("/stations", authenticate, authorize(["admin"]), createStation)
+router.post(
+  "/stations",
+  authenticate,
+  authorize(["admin"]),
+  validateCreateStation,
+  createStation
+)
 router.put("/stations/:stationId", authenticate, authorize(["admin"]), updateStationById)
 router.delete("/stations/:stationId", authenticate, authorize(["admin"]), deleteStationById)
 
 // TRIP
 router.get("/trips", getTrips)
 router.get("/trips/:id", getTripById)
-router.post("/trips", authenticate, authorize(["admin"]), createTrip)
-router.put("/trips/:id", authenticate, authorize(["admin"]), updateTripById)
+router.post(
+  "/trips",
+  authenticate,
+  // authorize(["admin"]),
+  validateCreateTrip,
+  createTrip
+)
+router.put(
+  "/trips/:id",
+  authenticate,
+  // authorize(["admin"]),
+  validateUpdateTrip,
+  updateTripById
+)
 router.delete("/trips/:id", authenticate, authorize(["admin"]), deleteTripById)
 router.patch("/trips/:id", authenticate, authorize(["admin"]), _updateTripById)
+
+
+// ticket
+router.post(
+  "/tickets",
+  authenticate,
+  createTicket
+)
 
 module.exports = router;

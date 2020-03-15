@@ -59,7 +59,7 @@ module.exports.updateTripById = (req, res, next) => {
   const { fromStationId, toStationId, price, startTime } = req.body;
   Trip.findById(id)
     .then(trip => {
-      if (!trip) return Promise.reject({ message: "Trip not found" })
+      // if (!trip) return Promise.reject({ message: "Trip not found" })
 
       trip.fromStationId = fromStationId;
       trip.toStationId = toStationId;
