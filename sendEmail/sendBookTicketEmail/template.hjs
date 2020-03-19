@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>HELLO, {{email}}</h1>
+  <p>From station: {{fromStation}}</p>
+  <p>To station: {{toStation}}</p>
+  <p>Start time: {{startTime}}</p>
+  <p>Amount: {{amount}}</p>
+  <p>price: {{price}}</p>
+  <p>Total: {{total}}</p>
+  <p>seatCodes: {{seatCodes}}</p>
+</body>
+
+</html>

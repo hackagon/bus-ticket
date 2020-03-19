@@ -8,10 +8,12 @@ const { sendBookTicketEmail } = require("../sendEmail/sendBookTicketEmail/index"
 // book ticket = createTicket
 module.exports.createTicket = (req, res, next) => {
   // authentication
-  const { userId } = req.user;
+  const { userId, email } = req.user;
   const { tripId, seatCodes } = req.body;
 
   Trip.findById(tripId)
+    .populate("fromStationId")
+    .populate("toStationId")
     .then(trip => {
       if (!trip) return Promise.reject({ message: "Trip not found" });
       // trip ton tai
@@ -65,7 +67,7 @@ module.exports.createTicket = (req, res, next) => {
       const ticket = result[0]
       const trip = result[1];
 
-      sendBookTicketEmail();
+      sendBookTicketEmail(email, trip, ticket);
 
       res.status(200).json(ticket)
     })
