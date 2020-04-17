@@ -63,7 +63,6 @@ module.exports.updatePassword = (req, res, next) => {
 
   User.findById(userId)
     .then(user => {
-      console.log(user)
       user.password = newPassword;
       return user.save()
     })

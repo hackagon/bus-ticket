@@ -73,3 +73,11 @@ module.exports.createTicket = (req, res, next) => {
     })
     .catch(err => res.status(500).json(err))
 }
+
+module.exports.getTickets = (req, res, next) => {
+  Ticket.find()
+    .then(tickets => {
+      return res.status(200).json(tickets)
+    })
+    .catch(err => res.status(500).json(err))
+}

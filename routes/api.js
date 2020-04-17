@@ -17,7 +17,7 @@ const {
 const { validateCreateStation, validateUpdateStation } = require("../middlewares/validations/validate.station")
 const { validateCreateTrip, validateUpdateTrip } = require("../middlewares/validations/validate.trip")
 
-const { createTicket } = require("./ticket");
+const { createTicket, getTickets } = require("./ticket");
 const router = express.Router();
 
 // USER
@@ -53,7 +53,13 @@ router.post(
   validateCreateStation,
   createStation
 )
-router.put("/stations/:stationId", authenticate, authorize(["admin"]), updateStationById)
+router.put(
+  "/stations/:stationId",
+  authenticate,
+  authorize(["admin"]),
+  validateUpdateStation,
+  updateStationById
+)
 router.delete("/stations/:stationId", authenticate, authorize(["admin"]), deleteStationById)
 
 // TRIP
@@ -62,14 +68,14 @@ router.get("/trips/:id", getTripById)
 router.post(
   "/trips",
   authenticate,
-  // authorize(["admin"]),
+  authorize(["admin"]),
   validateCreateTrip,
   createTrip
 )
 router.put(
   "/trips/:id",
   authenticate,
-  // authorize(["admin"]),
+  authorize(["admin"]),
   validateUpdateTrip,
   updateTripById
 )
@@ -82,6 +88,13 @@ router.post(
   "/tickets",
   authenticate,
   createTicket
+)
+
+router.get(
+  "/tickets",
+  authenticate,
+  authorize(["admin"]),
+  getTickets
 )
 
 module.exports = router;

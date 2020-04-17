@@ -14,7 +14,6 @@ module.exports.authenticate = (req, res, next) => {
   if (!token) return res.status(401).json({ message: "You must provide token" })
 
   jwt.verify(token, "abc123", (err, decoded) => {
-    console.log(err, decoded)
     if (decoded) {
       req.user = decoded // decoded la payload cua token, chua thong email, userType, fullName
       next()
