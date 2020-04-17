@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose"); // ORM
 const stationRouter = require("./routes/station");
 
-mongoose.connect("mongodb://localhost:27017/bus-ticket", {
+mongoose.connect("mongodb+srv://admin:admin@cluster0-h96u9.mongodb.net/bus-ticket?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
