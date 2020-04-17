@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 
 const { User } = require("../models/user");
+const { sendResetPasswordEmail } = require("../sendEmail/sendResetPasswordEmail/index")
 
 
 // middleware
@@ -127,4 +128,27 @@ module.exports.login = (req, res, next) => {
     })
 }
 
+// change password !== reset password
+// Chang pw: van nho pw cu, nhung muon doi pw moi
+// chang pw: input vao phai co (pw + email)
+// reset pw: chua dang nhap ==> forget pw ==> input: email
+// POST method
+module.exports.resetPassword = (req, res, next) => {
+  const { email } = req.body;
+  const newPassword = Math.random().toString(36).substring(3)
 
+  User.findOne({ email })
+    .then(user => {
+      if (!user) return Promise.reject({ message: "Email not exist" })
+
+      user.password = newPassword;
+      return user.save();
+    })
+    .then(user => {
+      sendResetPasswordEmail(email, newPassword);
+
+      res.status(200).json({
+        message: `Reset password successfully, new password is sent to your email: ${email}`
+      })
+    })
+}

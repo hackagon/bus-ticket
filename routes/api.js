@@ -2,7 +2,7 @@ const express = require("express");
 
 const { authenticate, authorize } = require("../middlewares/auth")
 const { getUsers, createUser, updateUserById,
-  updatePassword, deleteUserById, login } = require("./user");
+  updatePassword, deleteUserById, login, resetPassword } = require("./user");
 
 const { getStations, getStationById, createStation,
   updateStationById, deleteStationById } = require("./station");
@@ -30,6 +30,9 @@ router.put(
   validateUpdateUser,
   updateUserById
 )
+
+router.patch("/users/reset-password", resetPassword)
+
 router.patch(
   "/users/:userId",
   authenticate,
