@@ -9,6 +9,8 @@ const seatCodes = [
 module.exports.getTrips = (req, res, next) => {
   Trip.find()
     .select("-seats")
+    .populate("fromStationId", "name province")
+    .populate("toStationId", "name province")
     .then(trips => {
       res.status(200).json(trips);
     })
